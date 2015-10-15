@@ -16,12 +16,8 @@ function init()
   var mainEmail = document.createElement("a");
   var mainThumb = null;
   //Main content elements
-  var shownImgOne = document.createElement("img");
-  var shownImgTwo = document.createElement("img");
-  var shownImgThree = document.createElement("img");
-  var shownNameOne = document.createElement("a");
-  var shownNameTwo = document.createElement("a");
-  var shownNameThree = document.createElement("a");
+  var shownImg = [document.createElement("img"), document.createElement("img"), document.createElement("img")];
+  var shownName = [document.createElement("a"), document.createElement("a"), document.createElement("a")];
   var spacer = [document.createElement("br"), document.createElement("br")];
   //Sidebar content elements
   
@@ -68,35 +64,38 @@ function init()
             //do nothing
           }
           else
-          {
-            shownImgThree.src = shownImgTwo.src;
-            shownNameThree.href = shownNameTwo.href;
-            shownNameThree.innerHTML = shownNameTwo.innerHTML;
-
-            shownImgTwo.src = shownImgOne.src;
-            shownNameTwo.href = shownNameOne.href;
-            shownNameTwo.innerHTML = shownNameOne.innerHTML;
-            
-            shownImgOne.src = mainThumb;
-            shownNameOne.href = mainEmail.href;
-            shownNameOne.innerHTML = mainName.innerHTML;
-            
-            if(shownNameOne != null && shownImgOne != null && shownImgOne.src.indexOf(".jpg") >= 0)
+          { 
+            for (c = 0; c <= 2; c++)
             {
-              oldOutput.appendChild(shownImgOne);
-              oldOutput.appendChild(shownNameOne);
-            }
-            if(shownNameTwo != null && shownImgTwo != null && shownImgTwo.src.indexOf(".jpg") >= 0)
-            {
-              oldOutput.appendChild(spacer[0]);
-              oldOutput.appendChild(shownImgTwo);
-              oldOutput.appendChild(shownNameTwo);
-            }
-            if(shownNameThree != null && shownImgThree != null && shownImgThree.src.indexOf(".jpg") >= 0)
-            {
-              oldOutput.appendChild(spacer[1]);
-              oldOutput.appendChild(shownImgThree);
-              oldOutput.appendChild(shownNameThree);
+              if (c === 0)
+              {
+                for (i = 0; i <= 2; i++)
+                {
+                  if (i < 2)
+                  {
+                    shownImg[i].src = shownImg[i+1].src;
+                    shownName[i].href = shownName[i+1].href;
+                    shownName[i].innerHTML = shownName[i+1].innerHTML;
+                  }
+                  else
+                  {
+                    shownImg[i].src = mainThumb;
+                    shownName[i].href = mainEmail.href;
+                    shownName[i].innerHTML = mainName.innerHTML;
+                  }
+                }
+              }
+              
+              if (c != 0)
+              {
+                oldOutput.appendChild(spacer[c-1]);
+              }
+              
+              if(shownName[c] != null && shownImg[c] != null && shownImg[c].src.indexOf(".jpg") >= 0)
+              {
+                oldOutput.appendChild(shownImg[c]);
+                oldOutput.appendChild(shownName[c]);
+              }
             }
           }
           //Cycles the last 3 people shown through the right side div
@@ -104,8 +103,8 @@ function init()
           mainImg.src = userData[cycleCounter].image;
           mainThumb = userData[cycleCounter].thumbnail;
           mainName.innerHTML = userData[cycleCounter].firstName + " " + userData[cycleCounter].lastName;
-          mainEmail.href = "mailto:" + userData[cycleCounter].email;
           mainEmail.innerHTML = userData[cycleCounter].email;
+          mainEmail.href = "mailto:" + userData[cycleCounter].email;
 
           mainOutput.appendChild(mainImg);
           mainOutput.appendChild(mainName);
