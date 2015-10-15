@@ -1,6 +1,6 @@
 function init()
 {
-  var dataFile = "http://localhost:3000/users.json";
+  var dataFile = "https://raw.githubusercontent.com/coyt0001/MAD9014/master/MidTerm/users.json";
   //Var holding location of JSON user data
   var loadButton = document.getElementById("loadBtn");
   var showButton = document.getElementById("showBtn");
